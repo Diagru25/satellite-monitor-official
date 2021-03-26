@@ -8,5 +8,6 @@ export {
     Circle,
     Rectangle,
     Map,
-    withLeaflet
+    CircleMarker,
+    withLeaflet,
 } from 'react-leaflet';

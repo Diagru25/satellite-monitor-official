@@ -1,6 +1,7 @@
 export * from './positionAction';
 export {
     default as positionReducer,
-    setPoint,
-    addPoint
+    setCenter,
+    addPoint,
+    setListPolyline,
 } from './PositionSlice';

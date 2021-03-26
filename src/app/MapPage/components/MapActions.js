@@ -5,15 +5,21 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { DatePicker, Input, Button, Form } from '../../packages/core/adapters/ant-design';
 
-import { setPoint } from '../../Redux/Position';
+import { setCenter, setListPolyline, calculate_orbit } from '../../Redux/Position';
+
+import axios from 'axios';
+
+import moment from 'moment';
 
 
 const MapActions = () => {
 
     const dispatch = useDispatch();
-    const { point } = useSelector(state => state.positionReducer);
+    const { center } = useSelector(state => state.positionReducer);
 
     const [position, setPosition] = useState({ lat: '', lng: '' });
+    const [listSatellite, setListSatellite] = useState([]);
+    const [rangeTime, setRangeTime] = useState([]);
 
 
     const handleMove = () => {
@@ -25,7 +31,7 @@ const MapActions = () => {
         arr.push(Number(position.lat));
         arr.push(Number(position.lng));
 
-        dispatch(setPoint(arr));
+        dispatch(setCenter(arr));
     }
 
     const handleOnChange = (value, dateString) => {
@@ -33,7 +39,26 @@ const MapActions = () => {
     }
 
     const handleOnChangeRange = (value, dateString) => {
-        console.log(value);
+        if (value !== null && moment() < moment(value[0])) {
+            const start_time = moment(value[0]).format('YYYY-MM-DD HH:mm:ss');
+            const end_time = moment(value[1]).format('YYYY-MM-DD HH:mm:ss');
+            setRangeTime([start_time, end_time])
+        }
+
+    }
+
+    const handleGetData = async () => {
+
+        let a = {
+            lat: center[0],
+            long: center[1],
+            time_start: rangeTime[0] ? rangeTime[0] : '',
+            time_end: rangeTime[1] ? rangeTime[1] : ''
+        }
+
+        console.log(a);
+
+        dispatch(calculate_orbit(a));
     }
 
     return (
@@ -55,18 +80,25 @@ const MapActions = () => {
                 <span>Ngày cụ thể: </span>
                 <DatePicker
                     showTime
-                    format='DD-MM-YYYY H:mm:ss'
+                    format='DD-MM-YYYY HH:mm:ss'
                     placeholder='Chọn ngày'
                     onChange={handleOnChange} />
             </div>
             <div className='map-actions-items'>
                 <span>Khoảng thời gian: </span>
                 <DatePicker.RangePicker
-                    format='DD-MM-YYYY H:mm:ss'
+                    format='DD-MM-YYYY HH:mm:ss'
                     placeholder={['Từ ngày', 'Đến ngày']}
                     showTime
-                    onChange={handleOnChangeRange}
+                    //onChange={handleOnChangeRange}
+                    onOk={handleOnChangeRange}
                 />
+                <Button type='dashed' onClick={handleGetData}>Lấy dữ liệu</Button>
+            </div>
+            <div>
+                {
+                    listSatellite.map((satellite, index) => <p key={index}>{index} --- {satellite.name}</p>)
+                }
             </div>
         </div>
     )

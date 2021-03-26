@@ -1,7 +1,7 @@
 import { MapControl, withLeaflet } from 'react-leaflet';
 import { OpenStreetMapProvider, SearchControl } from 'leaflet-geosearch';
 import { connect } from 'react-redux';
-import { setPoint } from '../../Redux/Position';
+import { setCenter } from '../../Redux/Position';
 
 class SearchMap extends MapControl {
 
@@ -20,7 +20,7 @@ class SearchMap extends MapControl {
             retainZoomLevel: false,
             animateZoom: true,
             keepResult: false,
-            searchLabel: 'search',
+            searchLabel: 'Tìm kiếm',
         });
 
         return searchControl;
@@ -36,13 +36,13 @@ class SearchMap extends MapControl {
             let arr = [0, 0];
             arr[0] = e.location.y;
             arr[1] = e.location.x;
-            this.props.setPoint(arr);
+            this.props.setCenter(arr);
         });
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        setPoint: (arr) => dispatch(setPoint(arr))
+        setCenter: (arr) => dispatch(setCenter(arr))
     }
 }
 export default withLeaflet(connect(null, mapDispatchToProps)(SearchMap));
