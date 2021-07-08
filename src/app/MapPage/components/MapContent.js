@@ -45,7 +45,9 @@ const MapContent = (props) => {
                 />
                 <SearchMap />
 
+                
                 {
+                    //add radius
                     [
                         [-0.62937, 110.90970],
                         [22.09327, 106.39133],
@@ -59,6 +61,7 @@ const MapContent = (props) => {
                     })
                 }
                 {
+                    //add marker
                     [
                         [-0.62937, 110.90970],
                         [22.09327, 106.39133],
@@ -91,8 +94,6 @@ const MapContent = (props) => {
                         console.log(coordinate)
                         return <Polyline positions={coordinate} arrowheads={{ size: '5px', fill: true, frequency: 'allvertices' }} />
                     }) */}
-
-
             </Map>
         </div>
 
