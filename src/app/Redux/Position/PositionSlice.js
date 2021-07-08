@@ -8,6 +8,7 @@ const positionSlice = createSlice({
     initialState: {
         center: [0, 0], //[21, 105]
         listPolyline: [],
+        listSatellite: [],
         polyline: [
             [
                 -0.8899345887083454, 48.269216656952324
@@ -45,7 +46,8 @@ const positionSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(calculate_orbit.fulfilled, (state, action) => {
-            console.log('fulfilled');
+            state.listSatellite = action.payload.data;
+            console.log('fulfilled', state.listSatellite);
         })
     }
 })

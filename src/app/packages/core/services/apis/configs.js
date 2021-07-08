@@ -1,4 +1,4 @@
-const server = 'http://localhost:5000/api/'
+const server = 'http://localhost:5000/'
 
 export {
     server
