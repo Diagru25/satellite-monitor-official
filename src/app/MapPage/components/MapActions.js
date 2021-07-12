@@ -39,7 +39,7 @@ const MapActions = () => {
     }
 
     const handleOnChangeRange = (value, dateString) => {
-        if (value !== null && moment() < moment(value[0])) {
+        if (value !== null && moment() > moment(value[0])) {
             const start_time = moment(value[0]).format('YYYY-MM-DD HH:mm:ss');
             const end_time = moment(value[1]).format('YYYY-MM-DD HH:mm:ss');
             setRangeTime([start_time, end_time])
