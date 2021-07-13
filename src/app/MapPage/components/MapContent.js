@@ -35,6 +35,9 @@ const MapContent = (props) => {
         dispatch(setCenter([e.latlng.lat, e.latlng.lng]));
     }
 
+    const handleMarkerClick = (e) => {
+        
+    }
 
     return (
         <div className='map-content-wrapper'>
@@ -63,16 +66,16 @@ const MapContent = (props) => {
                 {
                     //add marker
                     [
-                        [-0.62937, 110.90970],
-                        [22.09327, 106.39133],
-                        [25.87570, 105.56777],
-                        [29.65547, 104.70627],
-                        [33.43192, 103.79705],
-                        [37.20419, 102.82786],
-                        [40.97123, 101.78304]
+                        [-0.62937, 110.90970,{"_id": {"$oid": "60eab889b595893560261894"}, "Official Name": "1HOPSAT", "NORAD Number": "44859", "Nation": "USA", "Operator": "Hera Systems", "Users": "Commercial", "Application": "Earth Observation", "Detailed Purpose": "Technology Development", "Orbit": "566km \ufffd 576km, 36.9\ufffd", "Class of Orbit": "LEO", "Type of Orbit": "Non-Polar Inclined", "Period (minutes)": "96.08", "Mass (kg)": "22", "International Designator": "", "Date of Launch": "11/12/2019", "Expected Lifetime (yrs)": "0.5", "Equipment": "", "Describe": "Pathfinder for planned earth observation constellation."}],
+                        [22.09327, 106.39133,{"_id": {"$oid": "60eab889b595893560261894"}, "Official Name": "1HOPSAT", "NORAD Number": "44859", "Nation": "USA", "Operator": "Hera Systems", "Users": "Commercial", "Application": "Earth Observation", "Detailed Purpose": "Technology Development", "Orbit": "566km \ufffd 576km, 36.9\ufffd", "Class of Orbit": "LEO", "Type of Orbit": "Non-Polar Inclined", "Period (minutes)": "96.08", "Mass (kg)": "22", "International Designator": "", "Date of Launch": "11/12/2019", "Expected Lifetime (yrs)": "0.5", "Equipment": "", "Describe": "Pathfinder for planned earth observation constellation."}],
+                        [25.87570, 105.56777,{"_id": {"$oid": "60eab889b595893560261894"}, "Official Name": "1HOPSAT", "NORAD Number": "44859", "Nation": "USA", "Operator": "Hera Systems", "Users": "Commercial", "Application": "Earth Observation", "Detailed Purpose": "Technology Development", "Orbit": "566km \ufffd 576km, 36.9\ufffd", "Class of Orbit": "LEO", "Type of Orbit": "Non-Polar Inclined", "Period (minutes)": "96.08", "Mass (kg)": "22", "International Designator": "", "Date of Launch": "11/12/2019", "Expected Lifetime (yrs)": "0.5", "Equipment": "", "Describe": "Pathfinder for planned earth observation constellation."}],
+                        [29.65547, 104.70627,{"_id": {"$oid": "60eab889b595893560261894"}, "Official Name": "1HOPSAT", "NORAD Number": "44859", "Nation": "USA", "Operator": "Hera Systems", "Users": "Commercial", "Application": "Earth Observation", "Detailed Purpose": "Technology Development", "Orbit": "566km \ufffd 576km, 36.9\ufffd", "Class of Orbit": "LEO", "Type of Orbit": "Non-Polar Inclined", "Period (minutes)": "96.08", "Mass (kg)": "22", "International Designator": "", "Date of Launch": "11/12/2019", "Expected Lifetime (yrs)": "0.5", "Equipment": "", "Describe": "Pathfinder for planned earth observation constellation."}],
+                        [33.43192, 103.79705,{"_id": {"$oid": "60eab889b595893560261894"}, "Official Name": "1HOPSAT", "NORAD Number": "44859", "Nation": "USA", "Operator": "Hera Systems", "Users": "Commercial", "Application": "Earth Observation", "Detailed Purpose": "Technology Development", "Orbit": "566km \ufffd 576km, 36.9\ufffd", "Class of Orbit": "LEO", "Type of Orbit": "Non-Polar Inclined", "Period (minutes)": "96.08", "Mass (kg)": "22", "International Designator": "", "Date of Launch": "11/12/2019", "Expected Lifetime (yrs)": "0.5", "Equipment": "", "Describe": "Pathfinder for planned earth observation constellation."}],
+                        [37.20419, 102.82786,{"_id": {"$oid": "60eab889b595893560261894"}, "Official Name": "1HOPSAT", "NORAD Number": "44859", "Nation": "USA", "Operator": "Hera Systems", "Users": "Commercial", "Application": "Earth Observation", "Detailed Purpose": "Technology Development", "Orbit": "566km \ufffd 576km, 36.9\ufffd", "Class of Orbit": "LEO", "Type of Orbit": "Non-Polar Inclined", "Period (minutes)": "96.08", "Mass (kg)": "22", "International Designator": "", "Date of Launch": "11/12/2019", "Expected Lifetime (yrs)": "0.5", "Equipment": "", "Describe": "Pathfinder for planned earth observation constellation."}],
+                        [40.97123, 101.78304,{"_id": {"$oid": "60eab889b595893560261894"}, "Official Name": "1HOPSAT", "NORAD Number": "44859", "Nation": "USA", "Operator": "Hera Systems", "Users": "Commercial", "Application": "Earth Observation", "Detailed Purpose": "Technology Development", "Orbit": "566km \ufffd 576km, 36.9\ufffd", "Class of Orbit": "LEO", "Type of Orbit": "Non-Polar Inclined", "Period (minutes)": "96.08", "Mass (kg)": "22", "International Designator": "", "Date of Launch": "11/12/2019", "Expected Lifetime (yrs)": "0.5", "Equipment": "", "Describe": "Pathfinder for planned earth observation constellation."}]
                     ].map(coor => {
 
-                        return <Marker position={coor}
+                        return <Marker position={coor} onclick={handleMarkerClick}
                         />
                     })
                 }
