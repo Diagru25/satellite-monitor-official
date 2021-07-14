@@ -4,7 +4,7 @@ import satellite from '../../Assets/Images/icons8-satellite-30.png'
 
 
 
-const MarkerView = ({ position, detail }) => {
+const MarkerView = ({ detail, handleMarkerClick }) => {
 
     const satelliteIcon = new L.Icon({
         iconUrl: satellite,
@@ -14,8 +14,8 @@ const MarkerView = ({ position, detail }) => {
         //className: 'leaflet-div-icon'
     })
     return (
-        <Marker position={[position[0],position[1]]} icon={satelliteIcon} >
-            <Popup>{position[2]['Official Name']}</Popup>
+        <Marker position={[detail[0],detail[1]]} icon={satelliteIcon} onClick={handleMarkerClick}>
+            <Popup>{detail[2]['Official Name']}</Popup>
         </Marker>
     )
 }
