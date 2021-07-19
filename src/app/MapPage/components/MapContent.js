@@ -1,6 +1,6 @@
 import './MapContent.css';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setCenter, addPoint } from '../../Redux/Position';
@@ -14,6 +14,7 @@ const MapContent = (props) => {
 
     const mapRef = useRef();
     const dispatch = useDispatch();
+
     const { center, polyline, listPolyline, listSatellite } = useSelector(state => state.positionReducer);
 
     useEffect(() => {
@@ -34,6 +35,10 @@ const MapContent = (props) => {
         dispatch(setCenter([e.latlng.lat, e.latlng.lng]));
     }
 
+    const handleMarkerClick = (coor, e) => {
+        console.log("ok");
+        setDetail(coor);
+    }
 
     return (
         <div className='map-content-wrapper'>

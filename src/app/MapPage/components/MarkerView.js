@@ -6,9 +6,7 @@ import { useDispatch } from 'react-redux';
 import { setCurrentSatellite } from '../../Redux/Position/PositionSlice';
 
 const MarkerView = ({ position, detail }) => {
-
     const dispatch = useDispatch();
-
     const satelliteIcon = new L.Icon({
         iconUrl: satellite,
         iconRetinaUrl: satellite,
