@@ -5,9 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { DatePicker, Input, Button, Form } from '../../packages/core/adapters/ant-design';
 
-import { setCenter, setListPolyline, calculate_orbit } from '../../Redux/Position';
+import { setCenter, calculate_orbit } from '../../Redux/Position';
 
-import axios from 'axios';
 
 import moment from 'moment';
 
@@ -66,10 +65,10 @@ const MapActions = () => {
             <div className='map-actions-items'>
                 <Form layout='inline'>
                     <Form.Item label='Vĩ độ'>
-                        <Input style={{ width: '200px' }} onChange={e => setPosition({ ...position, lat: e.target.value })} />
+                        <Input style={{ width: '200px' }} onChange={e => setPosition({ ...position, lat: e.target.value })} value={center[0]}/>
                     </Form.Item>
                     <Form.Item label='Kinh độ'>
-                        <Input style={{ width: '200px' }} onChange={e => setPosition({ ...position, lng: e.target.value })} />
+                        <Input style={{ width: '200px' }} onChange={e => setPosition({ ...position, lng: e.target.value })} value={center[1]}/>
                     </Form.Item>
                     <Form.Item>
                         <Button type='primary' ghost onClick={handleMove}>Di chuyển</Button>
@@ -93,7 +92,7 @@ const MapActions = () => {
                     //onChange={handleOnChangeRange}
                     onOk={handleOnChangeRange}
                 />
-                <Button type='dashed' onClick={handleGetData}>Lấy dữ liệu</Button>
+                <Button type='primary' onClick={handleGetData}>Lấy dữ liệu</Button>
             </div>
             <div>
                 {
