@@ -4,4 +4,5 @@ export {
     setCenter,
     addPoint,
     setListPolyline,
+    setCurrentSatellite
 } from './PositionSlice';

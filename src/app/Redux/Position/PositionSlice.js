@@ -1,6 +1,6 @@
 import { createSlice } from '../../packages/core/adapters/redux-toolkit';
 
-import { calculate_orbit } from './positionAction';
+import { calculate_orbit, getSatelliteInfo } from './positionAction';
 
 
 const positionSlice = createSlice({
@@ -8,7 +8,9 @@ const positionSlice = createSlice({
     initialState: {
         center: [0, 0], //[21, 105]
         listSatellite: [],
-        currentSatellite: {}
+        currentSatellite: {'detail':{},'info':{}},
+        listPosition:{},
+        totalSatellite: 0
     },
     reducers: {
         setCenter: (state, action) => {
@@ -27,13 +29,23 @@ const positionSlice = createSlice({
             });
         },
         setCurrentSatellite: (state, action) => {
-            state.currentSatellite = {...action.payload}
+            state.currentSatellite.detail = {...action.payload}
+            // console.log(state.currentSatellite.detail);
+        },
+        setListPosition: (state, action) => {
+            state.listPosition = state.listSatellite[action.payload]
+            // console.log(state.currentSatellite.detail);
         }
     },
     extraReducers: (builder) => {
         builder.addCase(calculate_orbit.fulfilled, (state, action) => {
             state.listSatellite = action.payload.data;
-            console.log('fulfilled', state.listSatellite);
+            state.totalSatellite = state.listSatellite.length;
+            // console.log('fulfilled', state.listSatellite);
+        })
+        builder.addCase(getSatelliteInfo.fulfilled, (state, action) => {
+            state.currentSatellite.info = action.payload.data;
+            // console.log('fulfilled', state.currentSatellite.info);
         })
     }
 })

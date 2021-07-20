@@ -18,7 +18,15 @@ export const calOrbit_all = (lat, long, time_start, time_end) => {
         }
     })
 }
-
+export const calSatellite = (id) => {
+    return api.makeRequest({
+        url: `satellites/${id}`,
+        method: 'GET',
+        headers: {
+            'Content-Type': 'text/html'
+        },
+    })
+}
 export const calOrbit = () => {
 
 }

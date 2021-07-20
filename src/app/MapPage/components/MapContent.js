@@ -45,7 +45,7 @@ const MapContent = (props) => {
                 <SearchMap />
                 
                 {
-                    listSatellite.map((item, index) => <OneSatelliteOnMap key={index} coordinate={item.coordinate} name={item.name}/>)
+                    listSatellite.map((item, index) => <OneSatelliteOnMap key={index} coordinate={item.coordinate} name={item.name} num={index}/>)
                 }
             </Map>
         </div>

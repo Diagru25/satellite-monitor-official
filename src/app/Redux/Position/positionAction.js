@@ -1,16 +1,27 @@
 import { createAsyncThunk } from '../../packages/core/adapters/redux-toolkit';
-import { calOrbit_all } from '../../packages/core/services/apis/satelliteOrbit';
+import { calOrbit_all, calSatellite } from '../../packages/core/services/apis/satelliteOrbit';
 
 const calculate_orbit = createAsyncThunk(
     'position/calOrbitAll',
     async (param, { dispatch, getState }) => {
         //const center = getState().positionReducer;
+        console.log('res: ',param);
         const res = await calOrbit_all(param.lat, param.long, param.time_start, param.time_end);
         console.log('res: ',res);
         return {data: res};
     }
 )
-
+const getSatelliteInfo = createAsyncThunk(
+    'position/getSatelliteInfo',
+    async (name, { dispatch, getState }) => {
+        console.log(name)
+        //const center = getState().positionReducer;
+        const res = await calSatellite(name);
+        console.log('res-get: ',res);
+        return {data: res};
+    }
+)
 export {
-    calculate_orbit
+    calculate_orbit,
+    getSatelliteInfo
 }
