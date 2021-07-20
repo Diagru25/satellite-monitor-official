@@ -31,7 +31,7 @@ const MapContent = (props) => {
     const handleClick = (e) => {
         console.log(e.latlng);
 
-        dispatch(addPoint([e.latlng.lat, e.latlng.lng]));
+        //dispatch(addPoint([e.latlng.lat, e.latlng.lng]));
         dispatch(setCenter([e.latlng.lat, e.latlng.lng]));
     }
 
