@@ -17,7 +17,6 @@ const MapActions = () => {
     const { center } = useSelector(state => state.positionReducer);
 
     const [position, setPosition] = useState({ lat: '', lng: '' });
-    const [listSatellite, setListSatellite] = useState([]);
     const [rangeTime, setRangeTime] = useState([]);
 
 
@@ -93,11 +92,6 @@ const MapActions = () => {
                     onOk={handleOnChangeRange}
                 />
                 <Button type='primary' onClick={handleGetData}>Lấy dữ liệu</Button>
-            </div>
-            <div>
-                {
-                    listSatellite.map((satellite, index) => <p key={index}>{index} --- {satellite.name}</p>)
-                }
             </div>
         </div>
     )
