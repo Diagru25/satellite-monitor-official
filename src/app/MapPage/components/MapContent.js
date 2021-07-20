@@ -16,8 +16,9 @@ const MapContent = (props) => {
 
     const mapRef = useRef();
     const dispatch = useDispatch();
-    const { center, polyline, listPolyline } = useSelector(state => state.positionReducer);
+    const { center, polyline, listPolyline, listSatellite, listCoordinate } = useSelector(state => state.positionReducer);
     const [detail, setDetail] = useState(0);
+    const [markers, setMarkers] = useState([]);
 
     useEffect(() => {
 
@@ -37,10 +38,34 @@ const MapContent = (props) => {
         dispatch(setCenter([e.latlng.lat, e.latlng.lng]));
     }
 
-    const handleMarkerClick = (coor, e) => {
-        console.log("ok");
-        setDetail(coor);
+    const handleMarkerClick = (itemDetail, e) => {
+        console.log("show item detail: ", itemDetail);
+        //setDetail(coor);
     }
+
+    const renderSatellite = () => {
+        const cloneMarker = [];
+        for (let i in listSatellite) {
+            for (let k in listSatellite[i].coordinate){
+                cloneMarker.push(<Marker detail={[listSatellite[i].coordinate[k].lat, listSatellite[i].coordinate[k].long]} handleMarkerClick={(e) => handleMarkerClick(listSatellite[i].coordinate[k], e)} />);
+            }
+            //setMarkers(cloneMarker);
+            console.log(cloneMarker);
+            //renderMarker(listSatellite[i].coordinate);
+            //renderCircle(listSatellite[i].coordinate);
+            //renderPolyline(listSatellite[i].coordinate);
+        }
+    }
+    // const renderMarker = (coordinate) => {
+            
+            
+    // };
+    // const renderCircle = (coordinate) => {
+    //     return coordinate.map((item) => <Circle center={[item.lat, item.long]} radius={item.radius ? item.radius : 50000} stroke={false} ></Circle>)
+    // };
+    // const renderPolyline = (coordinate) => {
+    //     return <Polyline positions={coordinate.map(item => [item.lat, item.long])} arrowheads={{ size: '8px', fill: true, frequency: '5' }} />
+    // };
 
     return (
         <div className='map-wrapper' >
@@ -51,9 +76,8 @@ const MapContent = (props) => {
                         attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                     />
                     <SearchMap />
-
-                    
-                    {
+                    {listCoordinate.map((item, index) => <Marker key={index} detail={item} handleMarkerClick={(e) => handleMarkerClick(item, e)}/>)}
+                    {/* {
                         //add radius
                         [
                             [-0.62937, 110.90970],
@@ -91,7 +115,7 @@ const MapContent = (props) => {
                         [33.43192, 103.79705],
                         [37.20419, 102.82786],
                         [40.97123, 101.78304]
-                    ]} arrowheads={{ size: '8px', fill: true, frequency: '5' }} />
+                    ]} arrowheads={{ size: '8px', fill: true, frequency: '5' }} /> */}
 
                     {/* listPolyline.map(element => {
                             
@@ -104,14 +128,14 @@ const MapContent = (props) => {
                 </Map>
             </div>
             <div className='map-detail-wrapper'>
-                {                    
+                {
                     // display Map Detail
                     detail != [] ?
-                    <MapDetail detail={detail}
-                    />
-                    :   
-                    <div></div>
-                }        
+                        <MapDetail detail={detail}
+                        />
+                        :
+                        <div></div>
+                }
             </div>
         </div>
 

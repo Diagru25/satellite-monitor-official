@@ -15,7 +15,7 @@ const MarkerView = ({ detail, handleMarkerClick }) => {
     })
     return (
         <Marker position={[detail[0],detail[1]]} icon={satelliteIcon} onClick={handleMarkerClick}>
-            <Popup>{detail[2]['Official Name']}</Popup>
+            <Popup>{/*detail[2]['Official Name']*/} popup</Popup>
         </Marker>
     )
 }
