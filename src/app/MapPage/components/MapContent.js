@@ -15,7 +15,7 @@ const MapContent = (props) => {
     const mapRef = useRef();
     const dispatch = useDispatch();
 
-    const { center, polyline, listPolyline, listSatellite } = useSelector(state => state.positionReducer);
+    const { center, listSatellite } = useSelector(state => state.positionReducer);
 
     useEffect(() => {
 
@@ -33,11 +33,6 @@ const MapContent = (props) => {
 
         dispatch(addPoint([e.latlng.lat, e.latlng.lng]));
         dispatch(setCenter([e.latlng.lat, e.latlng.lng]));
-    }
-
-    const handleMarkerClick = (coor, e) => {
-        console.log("ok");
-        setDetail(coor);
     }
 
     return (
