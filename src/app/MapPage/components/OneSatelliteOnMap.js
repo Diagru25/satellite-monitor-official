@@ -18,7 +18,7 @@ const OneSatelliteOnMap = ({ num, coordinate, name }) => {
             <Polyline
                 key={Math.random()}
                 positions={coordinate.map(item => [item.lat, item.long])}
-                arrowheads={{ size: '5px', fill: true, frequency: 'allvertices' }}
+                arrowheads={{ size: '20px', fill: true, frequency: 'allvertices' }}
             />
         </>
     );

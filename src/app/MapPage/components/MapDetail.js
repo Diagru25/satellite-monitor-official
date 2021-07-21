@@ -17,15 +17,15 @@ const MapDetail = () => {
                         <td><strong>Thời gian:</strong></td>
                         <td>{currentSatellite.detail.trvn}</td>
                         <td><strong>Vĩ độ:</strong></td>
-                        <td>{currentSatellite.detail.lat.toFixed(6)}</td>
+                        <td>{currentSatellite.detail.lat != null ? currentSatellite.detail.lat.toFixed(6) : ""}</td>
                         <td><strong>Kinh độ:</strong></td>
-                        <td>{currentSatellite.detail.long.toFixed(6)}</td>
+                        <td>{currentSatellite.detail.long != null ? currentSatellite.detail.long.toFixed(6) : ""}</td>
                     </tr>
                     <tr>
                         <td><strong>Alt:</strong></td>
-                        <td>{Number.parseFloat(currentSatellite.detail.alt).toExponential(4)}</td>
+                        <td>{currentSatellite.detail.alt != null ? Number.parseFloat(currentSatellite.detail.alt).toExponential(4): ""}</td>
                         <td><strong>Az:</strong></td>
-                        <td>{currentSatellite.detail.az.toFixed(6)}</td>
+                        <td>{currentSatellite.detail.az != null ? currentSatellite.detail.az.toFixed(6) : ""}</td>
                         <td><strong>Độ cao:</strong></td>
                         <td>{currentSatellite.detail.elevation}</td>
                         <td><strong>Phạm vi:</strong></td>

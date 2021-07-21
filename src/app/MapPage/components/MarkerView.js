@@ -24,7 +24,7 @@ const MarkerView = ({ index, position, detail }) => {
 
     return (
         <Marker position={position} icon={satelliteIcon}>
-            <Popup>{detail.name} Tọa độ: <br />{position[0]}, {position[1]} <br/> <button onClick={handleClick}>Xem chi tiết</button></Popup>
+            <Popup><strong>{detail.name}</strong> <br />({position[0].toFixed(6)}, {position[1].toFixed(6)}) <br/> <button onClick={handleClick}>Xem chi tiết</button></Popup>
         </Marker>
     )
 }
