@@ -3,9 +3,9 @@ import L from 'leaflet'
 import satellite from '../../Assets/Images/icons8-satellite-30.png'
 
 import { useDispatch } from 'react-redux';
-import { setCurrentSatellite } from '../../Redux/Position/PositionSlice';
+import { setCurrentSatellite, setListPosition } from '../../Redux/Position/PositionSlice';
 import { getSatelliteInfo } from '../../Redux/Position';
-const MarkerView = ({ key, position, detail }) => {
+const MarkerView = ({ index, position, detail }) => {
     const dispatch = useDispatch();
     const satelliteIcon = new L.Icon({
         iconUrl: satellite,
@@ -18,7 +18,7 @@ const MarkerView = ({ key, position, detail }) => {
     const handleClick = async () => {
         // console.log(detail.name)
         dispatch(setCurrentSatellite(detail))
-        // dispatch(setCurrentSatellite(key))
+        dispatch(setListPosition(index))
         dispatch(getSatelliteInfo(detail.id))
     }
 

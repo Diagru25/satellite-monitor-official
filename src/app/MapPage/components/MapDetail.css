@@ -2,18 +2,20 @@
   flex: 1;
   height: 100%;
   text-align: center;
+  width: 49%;
+  margin-left: 1%;
 }
-.flex-container {
-  display: flex;
-  padding: '20px 20px 20px 50px';
-  align-items: flex-start;
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 2px solid #ddd;
+  background-color: rgba(254, 255, 255, 0.685);
 }
 
-.flex-container > div {
-  width: 50%;
-  margin: 10px;
+th, td {
   text-align: left;
-  line-height: 20px;
-  font-size: 15px;
-  padding: '20px 20px 20px 50px'
+  padding: 8px;
 }
+
+tr:nth-child(even){background-color: #f2f2f2}

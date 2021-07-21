@@ -14,7 +14,7 @@ import moment from 'moment';
 const MapActions = () => {
 
     const dispatch = useDispatch();
-    const { center } = useSelector(state => state.positionReducer);
+    const { center, totalSatellite } = useSelector(state => state.positionReducer);
 
     const [position, setPosition] = useState({ lat: '', lng: '' });
     const [rangeTime, setRangeTime] = useState([]);
@@ -74,14 +74,14 @@ const MapActions = () => {
                     </Form.Item>
                 </Form>
             </div>
-            <div className='map-actions-items'>
+            {/* <div className='map-actions-items'>
                 <span>Ngày cụ thể: </span>
                 <DatePicker
                     showTime
                     format='DD-MM-YYYY HH:mm:ss'
                     placeholder='Chọn ngày'
                     onChange={handleOnChange} />
-            </div>
+            </div> */}
             <div className='map-actions-items'>
                 <span>Khoảng thời gian: </span>
                 <DatePicker.RangePicker
@@ -93,6 +93,8 @@ const MapActions = () => {
                 />
                 <Button type='primary' onClick={handleGetData}>Lấy dữ liệu</Button>
             </div>
+            
+            <div className='map-actions-items'><p><strong>Tổng số vệ tinh: </strong> {totalSatellite}</p></div>
         </div>
     )
 }

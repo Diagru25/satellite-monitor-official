@@ -9,7 +9,7 @@ const positionSlice = createSlice({
         center: [0, 0], //[21, 105]
         listSatellite: [],
         currentSatellite: {'detail':{},'info':{}},
-        listPosition:{},
+        listPosition:[],
         totalSatellite: 0
     },
     reducers: {
@@ -33,7 +33,7 @@ const positionSlice = createSlice({
             // console.log(state.currentSatellite.detail);
         },
         setListPosition: (state, action) => {
-            state.listPosition = state.listSatellite[action.payload]
+            state.listPosition = state.listSatellite[action.payload].coordinate
             // console.log(state.currentSatellite.detail);
         }
     },
@@ -54,6 +54,7 @@ export const {
     setCenter,
     addPoint,
     setListPolyline,
-    setCurrentSatellite
+    setCurrentSatellite,
+    setListPosition
 } = positionSlice.actions;
 export default positionSlice.reducer;

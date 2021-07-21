@@ -1,48 +1,95 @@
 import './MapDetail.css';
 import { useSelector } from 'react-redux';
-
+import OneSateOfSatellite from './OneSateOfSatellite';
 const MapDetail = () => {
 
-    const { currentSatellite } = useSelector(state => state.positionReducer)
+    const { currentSatellite, listPosition } = useSelector(state => state.positionReducer)
 
     console.log('current: ', currentSatellite);
     return (
         <div className='map-detail-wrapper'>
-            <h3>{currentSatellite.detail.name}</h3>
-            <div className='flex-container'>
-                <div>
-                    <p><strong>Norad ID:</strong> {currentSatellite.detail.id}</p>
-                    <p><strong>Vĩ độ:</strong> {currentSatellite.detail.lat}</p>
-                    <p><strong>Kinh độ:</strong> {currentSatellite.detail.long}</p>
-                    <p><strong>Trvn:</strong> {currentSatellite.detail.trvn}</p>
-                    <p><strong>Alt:</strong> {currentSatellite.detail.alt}</p>
-                    <p><strong>Az:</strong> {currentSatellite.detail.az}</p>
-                    <p><strong>Độ cao:</strong> {currentSatellite.detail.elevation}</p>
-                    <p><strong>Phạm vi:</strong> {currentSatellite.detail.range}</p>
-                    <p><strong>Date of Launch:</strong> {currentSatellite.info["Date of Launch"]}</p>
-                    <p><strong>Expected Lifetime (yrs):</strong> {currentSatellite.info["Expected Lifetime (yrs)"]}</p>
-                    <p><strong>Equipment:</strong> {currentSatellite.info["Equipment"]}</p>
-                    <p><strong>Describe:</strong> {currentSatellite.info["Describe"]}</p>
-                </div>
-                <div>
-                    <p><strong>Official Name:</strong> {currentSatellite.info["Official Name"]}</p>
-                {/* <p><strong>NORAD Number:</strong> {currentSatellite.info["NORAD Number"]}</p> */}
-                    <p><strong>Nation:</strong> {currentSatellite.info["Nation"]}</p>
-                    <p><strong>Operator:</strong> {currentSatellite.info["Operator"]}</p>
-                    <p><strong>Users:</strong> {currentSatellite.info["Users"]}</p>
-                    <p><strong>Application:</strong> {currentSatellite.info["Application"]}</p>
-                    <p><strong>Detailed Purpose:</strong> {currentSatellite.info["Detailed Purpose"]}</p>
-                    <p><strong>Orbit:</strong> {currentSatellite.info["Orbit"]}</p>
-                    <p><strong>Class of Orbit:</strong> {currentSatellite.info["Class of Orbit"]}</p>
-                    <p><strong>Type of Orbit:</strong> {currentSatellite.info["Type of Orbit"]}</p>
-                    <p><strong>Period (minutes):</strong> {currentSatellite.info["Period (minutes)"]}</p>
-                    <p><strong>Mass (kg):</strong> {currentSatellite.info["Mass (kg)"]}</p>
-                    <p><strong>COSPAR Number:</strong> {currentSatellite.info["COSPAR Number"]}</p>
-                    
-                </div>
-            </div>
-            <div className='flex-container'>
-            </div>
+            <h3>Satellite: {currentSatellite.detail.name} - <strong>{currentSatellite.detail.trvn}</strong></h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <td><strong>NORAD Number:</strong></td>
+                        <td>{currentSatellite.detail.id}</td>
+                        <td><strong>Thời gian:</strong></td>
+                        <td>{currentSatellite.detail.trvn}</td>
+                        <td><strong>Vĩ độ:</strong></td>
+                        <td>{currentSatellite.detail.lat.toFixed(6)}</td>
+                        <td><strong>Kinh độ:</strong></td>
+                        <td>{currentSatellite.detail.long.toFixed(6)}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Alt:</strong></td>
+                        <td>{Number.parseFloat(currentSatellite.detail.alt).toExponential(4)}</td>
+                        <td><strong>Az:</strong></td>
+                        <td>{currentSatellite.detail.az.toFixed(6)}</td>
+                        <td><strong>Độ cao:</strong></td>
+                        <td>{currentSatellite.detail.elevation}</td>
+                        <td><strong>Phạm vi:</strong></td>
+                        <td>{currentSatellite.detail.range}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Date of Launch:</strong></td>
+                        <td>{currentSatellite.info["Date of Launch"]}</td>
+                        <td><strong>Expected Lifetime (yrs):</strong></td>
+                        <td>{currentSatellite.info["Expected Lifetime (yrs)"]}</td>
+                        <td><strong>Equipment:</strong></td>
+                        <td>{currentSatellite.info["Equipment"]}</td>
+                        <td><strong>Describe:</strong></td>
+                        <td>{currentSatellite.info["Describe"]}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Official Name:</strong></td>
+                        <td>{currentSatellite.info["Official Name"]}</td>
+                        <td><strong>Nation:</strong></td>
+                        <td>{currentSatellite.info["Nation"]}</td>
+                        <td><strong>Operator:</strong></td>
+                        <td>{currentSatellite.info["Operator"]}</td>
+                        <td><strong>Users:</strong></td>
+                        <td>{currentSatellite.info["Users"]}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Application:</strong></td>
+                        <td>{currentSatellite.info["Application"]}</td>
+                        <td><strong>Detailed Purpose:</strong></td>
+                        <td>{currentSatellite.info["Detailed Purpose"]}</td>
+                        <td><strong>Orbit:</strong></td>
+                        <td>{currentSatellite.info["Orbit"]}</td>
+                        <td><strong>Class of Orbit:</strong></td>
+                        <td>{currentSatellite.info["Class of Orbit"]}</td>
+                    </tr>                    
+                    <tr>
+                        <td><strong>Type of Orbit:</strong></td>
+                        <td>{currentSatellite.info["Type of Orbit"]}</td>
+                        <td><strong>Period (minutes):</strong></td>
+                        <td>{currentSatellite.info["Period (minutes)"]}</td>
+                        <td><strong>Mass (kg):</strong></td>
+                        <td>{currentSatellite.info["Mass (kg)"]}</td>
+                        <td><strong>COSPAR Number:</strong></td>
+                        <td>{currentSatellite.info["COSPAR Number"]}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>5 Trạng thái gần nhất của vệ tinh {currentSatellite.detail.name}</h3>
+            <table>
+            <tbody>
+            <tr>
+                <td><strong>Thời gian</strong></td>
+                <td><strong>Vĩ độ</strong></td>
+                <td><strong>Kinh độ</strong></td>
+                <td><strong>Alt</strong></td>
+                <td><strong>Az</strong></td>
+                <td><strong>Độ cao</strong></td>
+                <td><strong>Phạm vi</strong></td>
+            </tr>
+            {
+                listPosition.map((item, index) => <OneSateOfSatellite item={item} />)
+            }
+            </tbody>
+            </table>
         </div>
     )
 }

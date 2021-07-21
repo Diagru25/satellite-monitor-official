@@ -13,7 +13,6 @@ const OneSatelliteOnMap = ({ num, coordinate, name }) => {
                         <Marker key={`marker ${index}`} index={num} position={[item.lat, item.long]} detail={{...item, name: name}}/>
                         <Circle key={`circle ${index}`} center={[item.lat, item.long]} radius={item.radius ? item.radius : 50000} stroke={false} />
                     </>
-
                 )
             }
             <Polyline
