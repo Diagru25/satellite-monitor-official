@@ -12,64 +12,70 @@ const MapDetail = () => {
             <table>
                 <tbody>
                     <tr>
-                        <td><strong>NORAD Number:</strong></td>
+                        <td colspan="2"><strong>NORAD Number:</strong></td>
                         <td>{currentSatellite.detail.id}</td>
-                        <td><strong>Thời gian:</strong></td>
-                        <td>{currentSatellite.detail.trvn}</td>
-                        <td><strong>Vĩ độ:</strong></td>
+                        <td colspan="1"><strong>Vĩ độ:</strong></td>
                         <td>{currentSatellite.detail.lat != null ? currentSatellite.detail.lat.toFixed(6) : ""}</td>
-                        <td><strong>Kinh độ:</strong></td>
+                        <td colspan="1"><strong>Kinh độ:</strong></td>
                         <td>{currentSatellite.detail.long != null ? currentSatellite.detail.long.toFixed(6) : ""}</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
+                        <td colspan="2"><strong>COSPAR Number:</strong></td>
+                        <td colspan="2">{currentSatellite.info["COSPAR Number"]}</td>
+                        <td colspan="2"><strong>Official Name:</strong></td>
+                        <td colspan="3">{currentSatellite.info["Official Name"]}</td>
+                        {/* <td><strong>Thời gian:</strong></td>
+                        <td>{currentSatellite.detail.trvn}</td> */}
+                    </tr>
+                    <tr>                                                
+                        <td><strong>Elevation:</strong></td>
+                        <td>{currentSatellite.detail.elevation}</td>
+                        <td><strong>Azim:</strong></td>
+                        <td>{currentSatellite.detail.az != null ? currentSatellite.detail.az.toFixed(6) : ""}</td>
                         <td><strong>Alt:</strong></td>
                         <td>{currentSatellite.detail.alt != null ? Number.parseFloat(currentSatellite.detail.alt).toExponential(4): ""}</td>
-                        <td><strong>Az:</strong></td>
-                        <td>{currentSatellite.detail.az != null ? currentSatellite.detail.az.toFixed(6) : ""}</td>
-                        <td><strong>Độ cao:</strong></td>
-                        <td>{currentSatellite.detail.elevation}</td>
-                        <td><strong>Phạm vi:</strong></td>
+                        <td><strong>Distance:</strong></td>
                         <td>{currentSatellite.detail.range}</td>
+                        <td></td>
                     </tr>
-                    <tr>
-                        <td><strong>Date of Launch:</strong></td>
-                        <td>{currentSatellite.info["Date of Launch"]}</td>
-                        <td><strong>Expected Lifetime (yrs):</strong></td>
-                        <td>{currentSatellite.info["Expected Lifetime (yrs)"]}</td>
-                        <td><strong>Equipment:</strong></td>
-                        <td>{currentSatellite.info["Equipment"]}</td>
-                        <td><strong>Describe:</strong></td>
-                        <td>{currentSatellite.info["Describe"]}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Official Name:</strong></td>
-                        <td>{currentSatellite.info["Official Name"]}</td>
+                    <tr>                    
+                        <td><strong>Users:</strong></td>
+                        <td colspan="2">{currentSatellite.info["Users"]}</td>
                         <td><strong>Nation:</strong></td>
                         <td>{currentSatellite.info["Nation"]}</td>
                         <td><strong>Operator:</strong></td>
-                        <td>{currentSatellite.info["Operator"]}</td>
-                        <td><strong>Users:</strong></td>
-                        <td>{currentSatellite.info["Users"]}</td>
+                        <td colspan="3">{currentSatellite.info["Operator"]}</td>
                     </tr>
                     <tr>
                         <td><strong>Application:</strong></td>
-                        <td>{currentSatellite.info["Application"]}</td>
-                        <td><strong>Detailed Purpose:</strong></td>
-                        <td>{currentSatellite.info["Detailed Purpose"]}</td>
-                        <td><strong>Orbit:</strong></td>
-                        <td>{currentSatellite.info["Orbit"]}</td>
-                        <td><strong>Class of Orbit:</strong></td>
-                        <td>{currentSatellite.info["Class of Orbit"]}</td>
-                    </tr>                    
+                        <td colspan="4">{currentSatellite.info["Application"]}</td>
+                        <td colspan="2"><strong>Detailed Purpose:</strong></td>
+                        <td colspan="2">{currentSatellite.info["Detailed Purpose"]}</td>
+                    </tr>             
                     <tr>
+                        
+                        <td ><strong>Orbit:</strong></td>
+                        <td colspan="3">{currentSatellite.info["Orbit"]}</td>
+                        <td ><strong>Class of Orbit:</strong></td>
+                        <td>{currentSatellite.info["Class of Orbit"]}</td>                        
                         <td><strong>Type of Orbit:</strong></td>
-                        <td>{currentSatellite.info["Type of Orbit"]}</td>
-                        <td><strong>Period (minutes):</strong></td>
+                        <td colspan="2">{currentSatellite.info["Type of Orbit"]}</td>
+                    </tr>       
+                    <tr>
+                        <td><strong>Equipment:</strong></td>
+                        <td colspan="2">{currentSatellite.info["Equipment"]}</td>
+                        <td colspan="2"><strong>Period (minutes):</strong></td>
                         <td>{currentSatellite.info["Period (minutes)"]}</td>
-                        <td><strong>Mass (kg):</strong></td>
+                        <td colspan="2"><strong>Mass (kg):</strong></td>
                         <td>{currentSatellite.info["Mass (kg)"]}</td>
-                        <td><strong>COSPAR Number:</strong></td>
-                        <td>{currentSatellite.info["COSPAR Number"]}</td>
+                    </tr>
+                    <tr>                        
+                        <td ><strong>Describe:</strong></td>
+                        <td colspan="8">{currentSatellite.info["Describe"]}</td>
+                    </tr>
+                    <tr>
                     </tr>
                 </tbody>
             </table>
@@ -77,19 +83,21 @@ const MapDetail = () => {
             <table>
             <tbody>
             <tr>
-                <td><strong>Thời gian</strong></td>
+                <td><strong>Thời gian</strong></td>          
+                <td><strong>Elevation</strong></td>
+                <td><strong>Azim</strong></td>
                 <td><strong>Vĩ độ</strong></td>
                 <td><strong>Kinh độ</strong></td>
                 <td><strong>Alt</strong></td>
-                <td><strong>Az</strong></td>
-                <td><strong>Độ cao</strong></td>
-                <td><strong>Phạm vi</strong></td>
+                <td><strong>Distance</strong></td>
+                <td><strong>Location</strong></td>
             </tr>
             {
                 listPosition.map((item, index) => <OneSateOfSatellite item={item} />)
             }
             </tbody>
             </table>
+            <div><p></p></div>
         </div>
     )
 }
