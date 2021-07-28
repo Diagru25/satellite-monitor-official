@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '../../packages/core/adapters/redux-toolkit';
-import { calOrbit_all, calSatellite } from '../../packages/core/services/apis/satelliteOrbit';
+import { calOrbit_all, calSatellite, updateDatabase, stopUpdateDatabase } from '../../packages/core/services/apis/satelliteOrbit';
 
 const calculate_orbit = createAsyncThunk(
     'position/calOrbitAll',
@@ -21,7 +21,25 @@ const getSatelliteInfo = createAsyncThunk(
         return {data: res};
     }
 )
+const updateSatelliteDatabase = createAsyncThunk(
+    'position/updateDatabase',
+    async (param, { dispatch, getState }) => {
+        const res = await updateDatabase();
+        console.log('res-update: ',res);
+        return {data: res};
+    }
+)
+const stopUpdateSatelliteDatabase = createAsyncThunk(
+    'position/stopUpdateDatabase',
+    async (param, { dispatch, getState }) => {
+        const res = await stopUpdateDatabase();
+        console.log('res-update: ',res);
+        return {data: res};
+    }
+)
 export {
     calculate_orbit,
-    getSatelliteInfo
+    getSatelliteInfo,
+    updateSatelliteDatabase,
+    stopUpdateSatelliteDatabase
 }

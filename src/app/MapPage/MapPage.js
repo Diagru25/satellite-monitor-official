@@ -12,7 +12,9 @@ export default function MapPage() {
     return (
         <Fragment>
             <Layout>
-                <MapActions />                
+                <div className='map-wrapper'>
+                    <MapActions />
+                </div>                
                 <div className='map-wrapper' >
                     <MapContent />
                     <MapDetail />

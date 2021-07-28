@@ -1,9 +1,9 @@
 import './MapContent.css';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setCenter, addPoint } from '../../Redux/Position';
+import { setCenter } from '../../Redux/Position';
 
 import { Map, TileLayer } from '../../packages/core/adapters/leaflet-map';
 

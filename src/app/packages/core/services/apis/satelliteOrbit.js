@@ -27,6 +27,15 @@ export const calSatellite = (id) => {
         },
     })
 }
-export const calOrbit = () => {
-
+export const updateDatabase = () => {
+    return api.makeRequest({
+        url: `satellites/update-database`,
+        method: 'POST',
+    })
+}
+export const stopUpdateDatabase = () => {
+    return api.makeRequest({
+        url: `satellites/stop-update-database`,
+        method: 'POST',
+    })
 }

@@ -9,12 +9,12 @@ import { setCenter, calculate_orbit } from '../../Redux/Position';
 
 
 import moment from 'moment';
-
+import MapFilter from './MapFilter'
 
 const MapActions = () => {
 
     const dispatch = useDispatch();
-    const { center, totalSatellite } = useSelector(state => state.positionReducer);
+    const { center, totalSatellite, baseTotalSatellite } = useSelector(state => state.positionReducer);
 
     const [position, setPosition] = useState({ lat: '', lng: '' });
     const [rangeTime, setRangeTime] = useState([]);
@@ -94,7 +94,11 @@ const MapActions = () => {
                 <Button type='primary' onClick={handleGetData}>Lấy dữ liệu</Button>
             </div>
             
-            <div className='map-actions-items'><p><strong>Tổng số vệ tinh: </strong> {totalSatellite}</p></div>
+            <div className='map-actions-items'>
+                <MapFilter></MapFilter>
+                <strong>&nbsp;&nbsp;Số vệ tinh hiển thị: </strong> &nbsp;&nbsp;{totalSatellite} / {baseTotalSatellite}
+            </div>
+            
         </div>
     )
 }
