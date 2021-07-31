@@ -5,6 +5,8 @@ import { calculate_orbit, getSatelliteInfo, updateSatelliteDatabase, stopUpdateS
 const positionSlice = createSlice({
     name: 'position',
     initialState: {
+        // Tọa độ muốn tiên đoán - Tọa độ muốn kiểm tra các vệ tinh sẽ đi qua trong khoảng thời gian
+        predictPoint: [0, 0],
         // Vị trí trung tâm của bản đồ
         center: [0, 0], //[21, 105]
         // Danh sách vệ tinh đi qua tọa độ X trong khoảng thời gian (số lượng dựa trên bộ lọc)
@@ -27,13 +29,13 @@ const positionSlice = createSlice({
         stopUpdateState: true,
     },
     reducers: {
+        setPredictPoint: (state, action) => {
+            //console.log(action.payload);
+            state.predictPoint = action.payload;
+        },
         setCenter: (state, action) => {
             //console.log(action.payload);
             state.center = action.payload;
-        },
-        addPoint: (state, action) => {
-            //console.log(action.payload);
-            state.polyline.push(action.payload);
         },
         setListPolyline: (state, action) => {
             state.listPolyline = [];
@@ -73,7 +75,7 @@ const positionSlice = createSlice({
         })
         builder.addCase(updateSatelliteDatabase.fulfilled, (state, action) => {
             state.updateResponse = action.payload.data;
-            // state.updateState = state.updateResponse;
+            state.updateState = action.payload.data.status === true ? 2 : -1;
             console.log('fulfilled', state.updateResponse);
         })
         builder.addCase(stopUpdateSatelliteDatabase.fulfilled, (state, action) => {
@@ -86,11 +88,11 @@ const positionSlice = createSlice({
 
 export const {
     setCenter,
-    addPoint,
     setListPolyline,
     setCurrentSatellite,
     setListPosition,
     filterSatellite,
-    setUpdateState
+    setUpdateState,
+    setPredictPoint
 } = positionSlice.actions;
 export default positionSlice.reducer;

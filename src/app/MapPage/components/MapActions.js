@@ -14,27 +14,23 @@ import MapFilter from './MapFilter'
 const MapActions = () => {
 
     const dispatch = useDispatch();
-    const { center, totalSatellite, baseTotalSatellite } = useSelector(state => state.positionReducer);
+    const { center, totalSatellite, baseTotalSatellite, predictPoint} = useSelector(state => state.positionReducer);
 
     const [position, setPosition] = useState({ lat: '', lng: '' });
     const [rangeTime, setRangeTime] = useState([]);
 
 
     const handleMove = () => {
-
         if (position.lat === '' || position.lng === '')
             return;
-
-        let arr = [];
-        arr.push(Number(position.lat));
-        arr.push(Number(position.lng));
-
+        let arr = [Number(position.lat), Number(position.lng) ];
         dispatch(setCenter(arr));
+        console.log(center)
     }
 
-    const handleOnChange = (value, dateString) => {
-        console.log(value);
-    }
+    // const handleOnChange = (value, dateString) => {
+    //     console.log(value);
+    // }
 
     const handleOnChangeRange = (value, dateString) => {
         if (value !== null && moment() < moment(value[0])) {
@@ -48,8 +44,8 @@ const MapActions = () => {
     const handleGetData = async () => {
 
         let a = {
-            lat: center[0],
-            long: center[1],
+            lat: predictPoint[0],
+            long: predictPoint[1],
             time_start: rangeTime[0] ? rangeTime[0] : '',
             time_end: rangeTime[1] ? rangeTime[1] : ''
         }
@@ -64,13 +60,25 @@ const MapActions = () => {
             <div className='map-actions-items'>
                 <Form layout='inline'>
                     <Form.Item label='Vĩ độ'>
-                        <Input style={{ width: '200px' }} onChange={e => setPosition({ ...position, lat: e.target.value })} value={center[0]}/>
+                        <Input style={{ width: '200px' }} onChange={e => setPosition({ ...position, lat: e.target.value })}/>
                     </Form.Item>
                     <Form.Item label='Kinh độ'>
-                        <Input style={{ width: '200px' }} onChange={e => setPosition({ ...position, lng: e.target.value })} value={center[1]}/>
+                        <Input style={{ width: '200px' }} onChange={e => setPosition({ ...position, lng: e.target.value })}/>
                     </Form.Item>
                     <Form.Item>
                         <Button type='primary' ghost onClick={handleMove}>Di chuyển</Button>
+                    </Form.Item>
+                </Form>
+            </div>
+            <div className='map-actions-items'>
+                <Form layout='inline'>
+                    <Form.Item label='Tọa độ vệ tinh đi qua:'>
+                    </Form.Item>
+                    <Form.Item label='Vĩ độ'>
+                        <Input style={{ width: '170px' }} value={predictPoint[0]}/>
+                    </Form.Item>
+                    <Form.Item label='Kinh độ'>
+                        <Input style={{ width: '170px' }} value={predictPoint[1]}/>
                     </Form.Item>
                 </Form>
             </div>

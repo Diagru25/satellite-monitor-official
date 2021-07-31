@@ -7,71 +7,150 @@ import { updateSatelliteDatabase, setUpdateState, stopUpdateSatelliteDatabase } 
 const Header = () => {
     const dispatch = useDispatch()
     const [autoUpdate, setAutoUpdate] = useState(true)
-    // Modal update
-    const [modalUpdateVisible, setModalUpdateVisible] = useState(false);
-    const [modalUpdateConfirmLoading, setModalUpdateConfirmLoading] = useState(false);
-    const [modalUpdateMaskClosable, setModalUpdateMaskClosable] = useState(true)
-    const [modalUpdateText, setModalUpdateText] = useState(' Bạn có chắc chắn muốn cập nhật dữ liệu mới?');
-    const [modalUpdateCancelText, setModalUpdateCancelText] = useState('Không')
-    const [modalUpdateOkText, setModalUpdateOkText] = useState('Cập nhật')
     const {updateState, updateResponse} = useSelector(state => state.positionReducer)
-    // Modal notice
-    const [modalNoticeVisible, setModalNoticeVisible] = useState(false);
-    // const [modalNoticeConfirmLoading, setModalNoticeConfirmLoading] = useState(false);
-    const [modalNoticeMaskClosable, setModalNoticeMaskClosable] = useState(false)
-    const [modalNoticeText, setModalNoticeText] = useState(' Bạn có chắc chắn muốn dừng quá trình cập nhật dữ liệu mới?');
-    const [modalNoticeCancelText, setModalNoticeCancelText] = useState('Không')
-    const [modalNoticeOkText, setModalNoticeOkText] = useState('Hủy')
+
+    //// Modal update
+    const [modalUpdateVisible, setModalUpdateVisible] = useState(false);
+    const [modalUpdateMaskClosable, setModalUpdateMaskClosable] = useState(true)
+    // Modal Update - Nội dung
+    const modalUpdateText = () => {
+        switch(updateState) {
+            case 1: // Tiến trình crawl đang chạy / đang cập nhật dữ liệu
+                return ' Dữ liệu đang cập nhật! Chờ trong giây lát ...'
+            case 2: // Cập nhật dữ liệu thành công
+                return ' Cập nhật dữ liệu mới thành công!'
+            case -1: // Cập nhật bị lỗi 
+                return ' Lỗi cập nhật dữ liệu mới!!'
+            default: // updateState == 0, Không cập nhật
+                return ' Bạn có chắc chắn muốn cập nhật dữ liệu mới?'
+        }
+    }
+    // Modal Update - Trả về biểu tượng thông báo các loại
+    const modalUpdateIcon = () => {
+        switch(updateState) {
+            case 1: // Tiến trình crawl đang chạy / đang cập nhật dữ liệu
+                return <SyncOutlined spin style={{ color: '#1890ff', fontSize: '18px' }}/>
+            case 2: // Cập nhật dữ liệu thành công
+                return <CheckCircleOutlined style={{ color: '#52c41a', fontSize: '18px' }}/>
+            case -1: // Cập nhật bị lỗi 
+                return <ExclamationCircleOutlined style={{ color: '#fa3014', fontSize: '18px' }}/>
+            default: // Còn lại
+                return <QuestionCircleOutlined style={{ color: '#faad14', fontSize: '18px' }}/>
+        }
+    }
+    // Modal Update - Chữ trên nút OK
+    const modalUpdateOkText = () => {
+        switch(updateState) {
+            case 1: // Tiến trình crawl đang chạy / đang cập nhật dữ liệu
+                return 'Đang cập nhật'
+            case 2: // Cập nhật dữ liệu thành công
+                return 'Xong'
+            case -1: // Cập nhật bị lỗi 
+                return 'Lỗi cập nhật dữ liệu mới!!'
+            default: // updateState == 0, Không cập nhật
+                return 'Cập nhật'
+        }
+    }
+    // Modal Update - Chữ trên nút Cancel
+    const modalUpdateCancelText = () => {
+        switch(updateState) {
+            case 1: // Tiến trình crawl đang chạy / đang cập nhật dữ liệu
+                return 'Hủy cập nhật'
+            case 2: // Cập nhật dữ liệu thành công
+                return 'Thoát'
+            case -1: // Cập nhật bị lỗi 
+                return 'Không'
+            default: // updateState == 0, Không cập nhật
+                return 'Không'
+        }
+    }
+    // Modal Update - Sự kiện hiển thị 
     const showModalUpdate = () => {
         setModalUpdateVisible(true);
-    };
-
+    }
+    // Modal Update - Xử lý sự kiện bấm nút OK
     const modalUpdateHandleOk = async () => {
-        setModalUpdateText(' Dữ liệu đang cập nhật! Chờ trong giây lát ...')
-        setModalUpdateOkText('Đang cập nhật')
-        setModalUpdateCancelText('Hủy cập nhật')
-        setModalUpdateConfirmLoading(true)
-        setModalUpdateMaskClosable(false)
-        dispatch(setUpdateState(1))
-        await dispatch(updateSatelliteDatabase())
-        setModalUpdateMaskClosable(true)
-        setModalUpdateVisible(false);
-        setModalUpdateConfirmLoading(false)
-        setModalUpdateText(' Bạn có chắc chắn muốn cập nhật dữ liệu mới?')
-        setModalUpdateCancelText('Không')
-        setModalUpdateOkText('Cập nhật')
-    };
+        if (updateState === 0) {
+            setModalUpdateMaskClosable(false)
+            dispatch(setUpdateState(1))
+            await dispatch(updateSatelliteDatabase())
+            setModalUpdateMaskClosable(true)
+        }
+        else if (updateState === 2){            
+            setModalUpdateVisible(false)
+            dispatch(setUpdateState(0))
+        }
+    }
 
-    const modalUpdateHandleCancel = async () => {
+    //// Modal notice
+    const [modalNoticeVisible, setModalNoticeVisible] = useState(false);    
+    const [modalNoticeMaskClosable, setModalNoticeMaskClosable] = useState(false)
+    // Modal Notice - Xử lý sự kiện bấm nút Cacncel
+    const modalUpdateHandleCancel = () => {
         if (updateState === 1){
             setModalNoticeVisible(true)
         }
         else
             setModalUpdateVisible(false);
-        // setModalUpdateMaskClosable(true)
     };
+    // Modal Update - Nội dung
+    const modalNoticeText = () => {
+        switch(updateState) {
+            case 1: // Tiến trình crawl đang chạy / đang cập nhật dữ liệu
+                return ' Bạn có chắc chắn muốn dừng quá trình cập nhật dữ liệu mới?'
+            default: // Còn lại
+                return ' Đã dừng quá trình cập nhật dữ liệu!'
+        }
+    }
+    // Modal Update - Trả về biểu tượng thông báo các loại
+    const modalNoticeIcon = () => {
+        switch(updateState) {
+            case 1: // Tiến trình crawl đang chạy / đang cập nhật dữ liệu
+                return <ExclamationCircleOutlined style={{ color: '#faad14', fontSize: '18px' }}/>
+            default: // Còn lại
+                return <CheckCircleOutlined style={{ color: '#52c41a', fontSize: '18px' }}/>
+        }
+    }
+    // Modal Update - Chữ trên nút OK
+    const modalNoticeOkText = () => {
+        switch(updateState) {
+            case 1: // Tiến trình crawl đang chạy / đang cập nhật dữ liệu
+                return 'Hủy cập nhật'
+            default: // Còn lại
+                return ' Xong'
+        }
+    }
+    // Modal Update - Chữ trên nút Cancel
+    const modalNoticeCancelText = () => {
+        switch(updateState) {
+            case 1: // Tiến trình crawl đang chạy / đang cập nhật dữ liệu
+                return 'Không'
+            default: // Còn lại
+                return 'Thoát'
+        }
+    }
+    
+    // Modal Notice - Xử lý sự kiện bấm nút OK
     const modalNoticeHandleOk = async () => {
         if (updateState === 1){
             await dispatch(stopUpdateSatelliteDatabase())
             dispatch(setUpdateState(0))
             setModalUpdateMaskClosable(true)
             setModalUpdateVisible(false);
-            setModalNoticeText(' Đã dừng quá trình cập nhật dữ liệu!')
-            setModalNoticeCancelText('Thoát')
-            setModalNoticeOkText('Xong')
             setModalNoticeMaskClosable(true)
         }
         else {
             setModalNoticeVisible(false)
-            setModalNoticeOkText('Hủy')
-            setModalNoticeCancelText('Không')
-            setModalNoticeText(' Bạn có chắc chắn muốn dừng quá trình cập nhật dữ liệu mới?')
+            dispatch(setUpdateState(0))
         }
         
     };
+    // Modal Notice - Xử lý sự kiện bấm nút Cacncel
     const modalNoticeHandleCancel = async () => {
-        setModalNoticeVisible(false);
+        setModalNoticeVisible(false)
+        dispatch(setUpdateState(0))
     };
+
     const menu =
         (
             <Menu>
@@ -79,15 +158,6 @@ const Header = () => {
                     <Checkbox checked={autoUpdate} >
                         Tự động cập nhật dữ liệu
                     </Checkbox>
-                </Menu.Item>
-                <Menu.Item>
-                    Lựa chọn 2
-                </Menu.Item>
-                <Menu.Item>
-                    Lựa chọn 3
-                </Menu.Item>
-                <Menu.Item>
-                    Lựa chọn 4
                 </Menu.Item>
             </Menu>
         );
@@ -102,15 +172,6 @@ const Header = () => {
                     <li onClick={showModalUpdate}>
                         Cập nhật dữ liệu
                     </li>
-                    {/* <li>
-                        Cài đặt
-                    </li>
-                    <li>
-                        Nút 3
-                    </li>
-                    <li>
-                        Nút 4
-                    </li> */}
                     <li>
                         <Dropdown overlay={menu} placement='bottomLeft' arrow>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -123,42 +184,36 @@ const Header = () => {
             </div>
             <div className="right-actions">
             </div>
-            <Modal
+            <Modal //// Modal Update
                 title="Cập nhật dữ liệu"
                 visible={modalUpdateVisible}
                 onOk={modalUpdateHandleOk}
-                confirmLoading={modalUpdateConfirmLoading}
+                confirmLoading={updateState === 1} // Tiến trình crawl đang chạy / đang cập nhật dữ liệu thì trả về True; Còn lại trả về False
                 onCancel={modalUpdateHandleCancel}
-                cancelText={modalUpdateCancelText}
-                okText={modalUpdateOkText}
+                cancelText={modalUpdateCancelText()}
+                okText={modalUpdateOkText()}
                 maskClosable={modalUpdateMaskClosable}
                 cancelButtonProps={{ danger: true }}
                 // width={400}
             >
-                <p> { updateState !== 1 ? 
-                <QuestionCircleOutlined style={{ color: '#1890ff', fontSize: '18px' }}/> 
-                : 
-                <SyncOutlined spin style={{ color: '#1890ff', fontSize: '18px' }}/>} 
-                 {modalUpdateText}
+                <p> 
+                    { modalUpdateIcon() } 
+                    { modalUpdateText() }
                 </p>
             </Modal>
-            <Modal
+            <Modal //// Modal Notice
                 title="Dừng quá trình cập nhật dữ liệu"
                 visible={modalNoticeVisible}
                 onOk={modalNoticeHandleOk}
-                // confirmLoading={modalNoticeConfirmLoading}
                 onCancel={modalNoticeHandleCancel}
-                cancelText={modalNoticeCancelText}
-                okText={modalNoticeOkText}
+                cancelText={modalNoticeCancelText()}
+                okText={modalNoticeOkText()}
                 okType='danger'
                 maskClosable={modalNoticeMaskClosable}
             >
-                <p> { updateState !== 1 ? 
-                    <CheckCircleOutlined style={{ color: '#52c41a', fontSize: '18px' }}/> 
-                    : 
-                    <ExclamationCircleOutlined style={{ color: '#faad14', fontSize: '18px' }}/>
-                    }
-                    {modalNoticeText}
+                <p> 
+                    { modalNoticeIcon() }
+                    { modalNoticeText() }
                 </p>
             </Modal>
         </div>

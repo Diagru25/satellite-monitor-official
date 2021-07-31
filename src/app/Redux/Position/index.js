@@ -2,10 +2,10 @@ export * from './positionAction';
 export {
     default as positionReducer,
     setCenter,
-    addPoint,
     setListPolyline,
     setCurrentSatellite,
     setListPosition,
     filterSatellite,
-    setUpdateState
+    setUpdateState,
+    setPredictPoint
 } from './PositionSlice';
