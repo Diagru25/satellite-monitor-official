@@ -46,7 +46,7 @@ class SearchMap extends MapControl {
         geocoder.reverse(
             e.latlng,
             map.options.crs.scale(map.getZoom()),
-            results => {
+            (results) => {
             var r = results[0];
             // console.log(results)
             if (r) {

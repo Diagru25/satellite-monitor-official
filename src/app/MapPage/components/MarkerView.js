@@ -8,7 +8,7 @@ import { setCurrentSatellite, setListPosition } from '../../Redux/Position/Posit
 import { getSatelliteInfo } from '../../Redux/Position';
 
 const MarkerView = ({ index, position, detail }) => {
-    const geocoder = L.Control.Geocoder.nominatim();
+    // const geocoder = L.Control.Geocoder.nominatim();
     const dispatch = useDispatch();
     const satelliteIcon = new L.Icon({
         iconUrl: satellite,
@@ -23,7 +23,7 @@ const MarkerView = ({ index, position, detail }) => {
         dispatch(setCurrentSatellite(detail))
         dispatch(setListPosition(index))
         dispatch(getSatelliteInfo(detail.id))
-        console.log(geocoder.reverse(position))
+        // console.log(geocoder.reverse(position))
     }
 
     return (
