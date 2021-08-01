@@ -7,10 +7,10 @@ import { updateSatelliteDatabase, setUpdateState, stopUpdateSatelliteDatabase } 
 const Header = () => {
     const dispatch = useDispatch()
     const [autoUpdate, setAutoUpdate] = useState(true)
-    const {updateState, updateResponse} = useSelector(state => state.positionReducer)
+    const {updateState} = useSelector(state => state.positionReducer)
 
     //// Modal update
-    const [modalUpdateVisible, setModalUpdateVisible] = useState(false);
+    const [modalUpdateVisible, setVisible_ModalUpdate] = useState(false);
     const [modalUpdateMaskClosable, setModalUpdateMaskClosable] = useState(true)
     // Modal Update - Nội dung
     const modalUpdateText = () => {
@@ -46,7 +46,7 @@ const Header = () => {
             case 2: // Cập nhật dữ liệu thành công
                 return 'Xong'
             case -1: // Cập nhật bị lỗi 
-                return 'Lỗi cập nhật dữ liệu mới!!'
+                return 'Thử lại'
             default: // updateState == 0, Không cập nhật
                 return 'Cập nhật'
         }
@@ -59,40 +59,59 @@ const Header = () => {
             case 2: // Cập nhật dữ liệu thành công
                 return 'Thoát'
             case -1: // Cập nhật bị lỗi 
-                return 'Không'
+                return 'Thoát'
             default: // updateState == 0, Không cập nhật
                 return 'Không'
         }
     }
     // Modal Update - Sự kiện hiển thị 
     const showModalUpdate = () => {
-        setModalUpdateVisible(true);
+        setVisible_ModalUpdate(true);
     }
     // Modal Update - Xử lý sự kiện bấm nút OK
     const modalUpdateHandleOk = async () => {
-        if (updateState === 0) {
-            setModalUpdateMaskClosable(false)
-            dispatch(setUpdateState(1))
-            await dispatch(updateSatelliteDatabase())
-            setModalUpdateMaskClosable(true)
-        }
-        else if (updateState === 2){            
-            setModalUpdateVisible(false)
-            dispatch(setUpdateState(0))
+        switch(updateState){
+            case 1: // Tiến trình crawl đang chạy / đang cập nhật dữ liệu
+                break
+            case 2: // Cập nhật dữ liệu thành công
+                setVisible_ModalUpdate(false)
+                dispatch(setUpdateState(0))
+                break
+            case -1: // Cập nhật bị lỗi
+                dispatch(setUpdateState(0))
+                break
+            default: // updateState == 0, Không cập nhật
+                setModalUpdateMaskClosable(false)
+                dispatch(setUpdateState(1))
+                await dispatch(updateSatelliteDatabase())
+                setModalUpdateMaskClosable(true)
+                break
         }
     }
+    // Modal Update - Xử lý sự kiện bấm nút Cacncel
+    const modalUpdateHandleCancel = () => {
+        switch(updateState){
+            case 1: // Tiến trình crawl đang chạy / đang cập nhật dữ liệu
+                setVisible_ModalNotice(true)
+                break
+            case 2: // Cập nhật dữ liệu thành công
+                setVisible_ModalUpdate(false);
+                break
+            case -1: // Cập nhật bị lỗi
+                setVisible_ModalUpdate(false);
+                dispatch(setUpdateState(0))
+                break
+            default: // updateState == 0, Không cập nhật
+                setVisible_ModalUpdate(false);
+                break
+        }
+            
+    };
 
     //// Modal notice
-    const [modalNoticeVisible, setModalNoticeVisible] = useState(false);    
+    const [modalNoticeVisible, setVisible_ModalNotice] = useState(false);    
     const [modalNoticeMaskClosable, setModalNoticeMaskClosable] = useState(false)
-    // Modal Notice - Xử lý sự kiện bấm nút Cacncel
-    const modalUpdateHandleCancel = () => {
-        if (updateState === 1){
-            setModalNoticeVisible(true)
-        }
-        else
-            setModalUpdateVisible(false);
-    };
+
     // Modal Update - Nội dung
     const modalNoticeText = () => {
         switch(updateState) {
@@ -117,7 +136,7 @@ const Header = () => {
             case 1: // Tiến trình crawl đang chạy / đang cập nhật dữ liệu
                 return 'Hủy cập nhật'
             default: // Còn lại
-                return ' Xong'
+                return 'Xong'
         }
     }
     // Modal Update - Chữ trên nút Cancel
@@ -136,19 +155,18 @@ const Header = () => {
             await dispatch(stopUpdateSatelliteDatabase())
             dispatch(setUpdateState(0))
             setModalUpdateMaskClosable(true)
-            setModalUpdateVisible(false);
+            setVisible_ModalUpdate(false);
             setModalNoticeMaskClosable(true)
         }
         else {
-            setModalNoticeVisible(false)
+            setVisible_ModalNotice(false)
             dispatch(setUpdateState(0))
         }
         
     };
-    // Modal Notice - Xử lý sự kiện bấm nút Cacncel
-    const modalNoticeHandleCancel = async () => {
-        setModalNoticeVisible(false)
-        dispatch(setUpdateState(0))
+    // Modal Notice - Xử lý sự kiện bấm nút Cancel
+    const modalNoticeHandleCancel = () => {
+            setVisible_ModalNotice(false)
     };
 
     const menu =

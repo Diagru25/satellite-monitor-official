@@ -30,11 +30,11 @@ const positionSlice = createSlice({
     },
     reducers: {
         setPredictPoint: (state, action) => {
-            //console.log(action.payload);
+            console.log('Predict Point:', action.payload);
             state.predictPoint = action.payload;
         },
         setCenter: (state, action) => {
-            //console.log(action.payload);
+            console.log('Center:', action.payload);
             state.center = action.payload;
         },
         setListPolyline: (state, action) => {
@@ -64,10 +64,17 @@ const positionSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(calculate_orbit.fulfilled, (state, action) => {
-            state.listSatellite = action.payload.data
-            state.baseListSatellite = action.payload.data
-            state.totalSatellite = state.baseTotalSatellite = state.listSatellite.length;
-            console.log('fulfilled', state.baseListSatellite);
+            if (action.payload.data === undefined || 
+                    ('message' in action.payload.data && action.payload.data.message === 'error')){
+                console.log('Error Calculate');
+                return
+            }
+            else {
+                state.listSatellite = action.payload.data
+                state.baseListSatellite = action.payload.data
+                state.totalSatellite = state.baseTotalSatellite = state.listSatellite.length;
+            }
+            // console.log('fulfilled', state.baseListSatellite);
         })
         builder.addCase(getSatelliteInfo.fulfilled, (state, action) => {
             state.currentSatellite.info = action.payload.data;
@@ -75,13 +82,11 @@ const positionSlice = createSlice({
         })
         builder.addCase(updateSatelliteDatabase.fulfilled, (state, action) => {
             state.updateResponse = action.payload.data;
-            state.updateState = action.payload.data.status === true ? 2 : -1;
-            console.log('fulfilled', state.updateResponse);
+            state.updateState = action.payload.data.status ? 2 : -1;
+            console.log('Message:', state.updateResponse.message);
         })
-        builder.addCase(stopUpdateSatelliteDatabase.fulfilled, (state, action) => {
-            state.updateResponse = action.payload.data;
-            // state.updateState = state.updateResponse;
-            console.log('fulfilled', state.updateResponse);
+        builder.addCase(stopUpdateSatelliteDatabase.fulfilled, (state, action) => { // Chỉ dùng để debug
+            console.log('Message:', action.payload.data.message); 
         })
     }
 })

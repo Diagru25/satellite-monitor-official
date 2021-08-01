@@ -2,7 +2,6 @@ import { Circle } from '../../packages/core/adapters/leaflet-map';
 
 import Polyline from 'react-leaflet-arrowheads';
 import Marker from './MarkerView';
-
 const OneSatelliteOnMap = ({ num, coordinate, name }) => {
 
     return (

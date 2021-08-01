@@ -12,6 +12,7 @@
         "docx": "^5.5.0",
         "file-saver": "^2.0.5",
         "leaflet": "^1.7.1",
+        "leaflet-control-geocoder": "^2.3.0",
         "leaflet-geosearch": "^3.2.1",
         "moment": "^2.29.1",
         "react": "^17.0.1",
