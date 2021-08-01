@@ -1,14 +1,11 @@
 import { Popup, Marker } from '../../packages/core/adapters/leaflet-map'
 import L from 'leaflet'
-import LCG from 'leaflet-control-geocoder' // Thư viện truy vấn ngược Địa điểm theo Tọa độ
 import satellite from '../../Assets/Images/icons8-satellite-30.png'
 
 import { useDispatch } from 'react-redux';
 import { setCurrentSatellite, setListPosition } from '../../Redux/Position/PositionSlice';
 import { getSatelliteInfo } from '../../Redux/Position';
-
 const MarkerView = ({ index, position, detail }) => {
-    const geocoder = L.Control.Geocoder.nominatim();
     const dispatch = useDispatch();
     const satelliteIcon = new L.Icon({
         iconUrl: satellite,
@@ -23,7 +20,6 @@ const MarkerView = ({ index, position, detail }) => {
         dispatch(setCurrentSatellite(detail))
         dispatch(setListPosition(index))
         dispatch(getSatelliteInfo(detail.id))
-        console.log(geocoder.reverse(position))
     }
 
     return (

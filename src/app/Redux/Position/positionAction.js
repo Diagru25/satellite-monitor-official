@@ -33,7 +33,7 @@ const stopUpdateSatelliteDatabase = createAsyncThunk(
     'position/stopUpdateDatabase',
     async (param, { dispatch, getState }) => {
         const res = await stopUpdateDatabase();
-        console.log('res-update: ',res);
+        console.log('res-stop-update: ',res);
         return {data: res};
     }
 )

@@ -14,18 +14,18 @@ import MapFilter from './MapFilter'
 const MapActions = () => {
 
     const dispatch = useDispatch();
-    const { center, totalSatellite, baseTotalSatellite, predictPoint} = useSelector(state => state.positionReducer);
+    const { totalSatellite, baseTotalSatellite, predictPoint} = useSelector(state => state.positionReducer);
 
     const [position, setPosition] = useState({ lat: '', lng: '' });
     const [rangeTime, setRangeTime] = useState([]);
 
 
-    const handleMove = () => {
-        if (position.lat === '' || position.lng === '')
-            return;
-        let arr = [Number(position.lat), Number(position.lng) ];
+    const handleMove = async () => {
+        if (position.lat === '' || position.lng === '') {
+            return;}
+        let arr = [Number(position.lat), Number(position.lng)];
+        await dispatch(setCenter([0,0]));
         dispatch(setCenter(arr));
-        console.log(center)
     }
 
     // const handleOnChange = (value, dateString) => {
