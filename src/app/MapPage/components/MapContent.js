@@ -3,10 +3,10 @@ import './MapContent.css';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch, } from 'react-redux';
 
-import { setPredictPoint, setCenter } from '../../Redux/Position';
+import { setPredictPoint } from '../../Redux/Position';
 
 import { Map, TileLayer } from '../../packages/core/adapters/leaflet-map';
-import L from 'leaflet' // Thư viện truy vấn ngược Địa điểm theo Tọa độ
+import L from 'leaflet'
 import SearchMap from './SearchControl';
 import OneSatelliteOnMap from './OneSatelliteOnMap';
 
@@ -25,8 +25,6 @@ const MapContent = (props) => {
     }, [])
     //const SearchBar = withLeaflet(SearchMap);
     const handleClick = (e) => {
-        // console.log(e.latlng);
-        //dispatch(addPoint([e.latlng.lat, e.latlng.lng]));
         dispatch(setPredictPoint([e.latlng.lat, e.latlng.lng]));
     }
 

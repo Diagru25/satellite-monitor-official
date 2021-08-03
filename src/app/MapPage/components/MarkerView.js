@@ -1,15 +1,14 @@
 import { Popup, Marker } from '../../packages/core/adapters/leaflet-map'
-import L from 'leaflet'
-import LCG from 'leaflet-control-geocoder' // Thư viện truy vấn ngược Địa điểm theo Tọa độ
+import L from 'leaflet' // Thư viện truy vấn ngược Địa điểm theo Tọa độ
 import satellite from '../../Assets/Images/icons8-satellite-30.png'
-
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentSatellite, setListPosition } from '../../Redux/Position/PositionSlice';
 import { getSatelliteInfo } from '../../Redux/Position';
 
 const MarkerView = ({ index, position, detail }) => {
-    // const geocoder = L.Control.Geocoder.nominatim();
+    const geocoder = L.Control.Geocoder.nominatim();
     const dispatch = useDispatch();
+    const {listSatellite} = useSelector(state => state.positionReducer)
     const satelliteIcon = new L.Icon({
         iconUrl: satellite,
         iconRetinaUrl: satellite,
@@ -17,12 +16,28 @@ const MarkerView = ({ index, position, detail }) => {
         iconSize: [32, 32],
         //className: 'leaflet-div-icon'
     })
-
     const handleClick = async () => {
-        // console.log(detail.name)
         dispatch(setCurrentSatellite(detail))
-        dispatch(setListPosition(index))
         dispatch(getSatelliteInfo(detail.id))
+        var temp = JSON.parse(JSON.stringify(listSatellite[index].coordinate))
+        listSatellite[index].coordinate.map((item, ind) => {
+            geocoder.reverse(
+                {lat: item.lat, lng: item.long},
+                256 * Math.pow(2, 16),
+                async (results) => {
+                    var r = await results[0];
+                    if (r !== undefined){
+                        temp[ind].location = r.name
+                        dispatch(setListPosition(JSON.parse(JSON.stringify(temp))))
+                    }
+                    else 
+                    {
+                        temp[ind].location = "Không xác định"
+                        dispatch(setListPosition(JSON.parse(JSON.stringify(temp)))) 
+                    }
+                }
+            )
+        })
         // console.log(geocoder.reverse(position))
     }
 

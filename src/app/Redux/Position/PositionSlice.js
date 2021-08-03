@@ -8,7 +8,7 @@ const positionSlice = createSlice({
         // Tọa độ muốn tiên đoán - Tọa độ muốn kiểm tra các vệ tinh sẽ đi qua trong khoảng thời gian
         predictPoint: [0, 0],
         // Vị trí trung tâm của bản đồ
-        center: [0, 0], //[21, 105]
+        center: [21.020243495690448, 105.84110184937984], //[21, 105]
         // Danh sách vệ tinh đi qua tọa độ X trong khoảng thời gian (số lượng dựa trên bộ lọc)
         listSatellite: [],
         // Vệ tinh đang xét tại 1 thời điểm 
@@ -49,8 +49,8 @@ const positionSlice = createSlice({
             // console.log(state.currentSatellite.detail);
         },
         setListPosition: (state, action) => {
-            state.listPosition = state.listSatellite[action.payload].coordinate;
-            // console.log(state.currentSatellite.detail);
+            state.listPosition = action.payload
+            console.log('list: ', action.payload)
         },
         filterSatellite: (state, action) => {
             // console.log(action.payload)
@@ -59,8 +59,8 @@ const positionSlice = createSlice({
         },
         setUpdateState: (state, action) => {
             state.updateState = action.payload;
-            console.log(state.updateState);
-        },
+            console.log(state.updateState)
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(calculate_orbit.fulfilled, (state, action) => {

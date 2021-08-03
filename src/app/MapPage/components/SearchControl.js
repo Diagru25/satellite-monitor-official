@@ -3,6 +3,7 @@ import { OpenStreetMapProvider, SearchControl } from 'leaflet-geosearch';
 import { connect } from 'react-redux';
 import { setCenter, setPredictPoint } from '../../Redux/Position';
 import L from 'leaflet' // Thư viện truy vấn ngược Địa điểm theo Tọa độ
+import LCG from 'leaflet-control-geocoder'
 class SearchMap extends MapControl {
 
     constructor(props, context) {
