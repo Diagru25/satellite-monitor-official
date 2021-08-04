@@ -19,13 +19,14 @@ const MarkerView = ({ index, position, detail }) => {
     const handleClick = async () => {
         dispatch(setCurrentSatellite(detail))
         dispatch(getSatelliteInfo(detail.id))
-        var temp = JSON.parse(JSON.stringify(listSatellite[index].coordinate))
+        var temp = JSON.parse(JSON.stringify(listSatellite[index].coordinate)) 
         listSatellite[index].coordinate.map((item, ind) => {
             geocoder.reverse(
                 {lat: item.lat, lng: item.long},
                 256 * Math.pow(2, 16),
                 async (results) => {
                     var r = await results[0];
+                    console.log('2')
                     if (r !== undefined){
                         temp[ind].location = r.name
                         dispatch(setListPosition(JSON.parse(JSON.stringify(temp))))
@@ -37,6 +38,7 @@ const MarkerView = ({ index, position, detail }) => {
                     }
                 }
             )
+            console.log('1')
         })
         // console.log(geocoder.reverse(position))
     }
