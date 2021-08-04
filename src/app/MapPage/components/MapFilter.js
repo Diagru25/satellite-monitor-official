@@ -17,7 +17,7 @@ const MapFilter = () => {
     const [checkedList, setCheckedList] = useState(defaultCheckedList);
     const [indeterminate, setIndeterminate] = useState(true);
     const [checkAll, setCheckAll] = useState(false);
-    const onChange = list => {
+    const onChange = (list) => {
         setCheckedList(list);
         setIndeterminate(!!list.length && list.length < plainOptions.length);
         setCheckAll(list.length === plainOptions.length);  

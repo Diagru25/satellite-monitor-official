@@ -155,7 +155,7 @@ const Header = () => {
             await dispatch(stopUpdateSatelliteDatabase())
             dispatch(setUpdateState(0))
             setModalUpdateMaskClosable(true)
-            setVisible_ModalUpdate(false);
+            setVisible_ModalUpdate(false)
             setModalNoticeMaskClosable(true)
         }
         else {
