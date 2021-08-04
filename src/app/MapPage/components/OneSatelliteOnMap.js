@@ -9,8 +9,8 @@ const OneSatelliteOnMap = ({ num, coordinate, name }) => {
             {
                 coordinate.map((item, index) =>
                     <>
-                        <Marker key={`marker ${index}`} index={num} position={[item.lat, item.long]} detail={{...item, name: name}}/>
-                        <Circle key={`circle ${index}`} center={[item.lat, item.long]} radius={item.radius ? item.radius : 50000} stroke={false} />
+                        <Marker key={`marker ${num}-${index}`} index_list={num} index_coordinate={index} position={[item.lat, item.long]} detail={{...item, name: name}}/>
+                        <Circle key={`circle ${num}-${index}`} center={[item.lat, item.long]} radius={item.radius ? item.radius : 50000} stroke={false} />
                     </>
                 )
             }

@@ -49,7 +49,7 @@ class SearchMap extends MapControl {
             map.options.crs.scale(map.getZoom()),
             (results) => {
             var r = results[0];
-            // console.log(results)
+            console.log(results)
             if (r) {
                 if (marker) {
                 marker

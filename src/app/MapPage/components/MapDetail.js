@@ -9,6 +9,7 @@ const MapDetail = () => {
     return (
         <div className='map-detail-wrapper'>
             <h3>Satellite: {currentSatellite.detail.name} - <strong>{currentSatellite.detail.trvn}</strong></h3>
+            <h4>{currentSatellite.detail.location}</h4>
             <table>
                 <tbody>
                     <tr>

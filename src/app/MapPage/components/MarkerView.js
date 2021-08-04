@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentSatellite, setListPosition } from '../../Redux/Position/PositionSlice';
 import { getSatelliteInfo } from '../../Redux/Position';
 
-const MarkerView = ({ index, position, detail }) => {
+const MarkerView = ({ index_list, index_coordinate, position, detail }) => {
     const geocoder = L.Control.Geocoder.nominatim();
     const dispatch = useDispatch();
     const {listSatellite} = useSelector(state => state.positionReducer)
@@ -17,10 +17,9 @@ const MarkerView = ({ index, position, detail }) => {
         //className: 'leaflet-div-icon'
     })
     const handleClick = async () => {
-        dispatch(setCurrentSatellite(detail))
         dispatch(getSatelliteInfo(detail.id))
-        var temp = JSON.parse(JSON.stringify(listSatellite[index].coordinate))
-        listSatellite[index].coordinate.map((item, ind) => {
+        var temp = JSON.parse(JSON.stringify(listSatellite[index_list].coordinate))
+        listSatellite[index_list].coordinate.map((item, ind) => {
             geocoder.reverse(
                 {lat: item.lat, lng: item.long},
                 256 * Math.pow(2, 16),
@@ -29,11 +28,13 @@ const MarkerView = ({ index, position, detail }) => {
                     if (r !== undefined){
                         temp[ind].location = r.name
                         dispatch(setListPosition(JSON.parse(JSON.stringify(temp))))
+                        dispatch(setCurrentSatellite(temp[index_coordinate]))
                     }
                     else 
                     {
                         temp[ind].location = "Không xác định"
                         dispatch(setListPosition(JSON.parse(JSON.stringify(temp)))) 
+                        dispatch(setCurrentSatellite(temp[index_coordinate]))
                     }
                 }
             )
