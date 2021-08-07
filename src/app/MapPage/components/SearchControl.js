@@ -43,7 +43,7 @@ class SearchMap extends MapControl {
         const geocoder = L.Control.Geocoder.nominatim();
         let marker;
         map.on("click", e => {
-        // console.log(map.options.crs.scale(map.getZoom()), map.getZoom())
+        console.log( map.getZoom())
         geocoder.reverse(
             e.latlng,
             map.options.crs.scale(map.getZoom()),

@@ -19,25 +19,27 @@ const MarkerView = ({ index_list, index_coordinate, position, detail }) => {
     const handleClick = async () => {
         dispatch(getSatelliteInfo(detail.id))
         var temp = JSON.parse(JSON.stringify(listSatellite[index_list].coordinate))
-        listSatellite[index_list].coordinate.map((item, ind) => {
-            geocoder.reverse(
-                {lat: item.lat, lng: item.long},
-                256 * Math.pow(2, 16),
-                async (results) => {
-                    var r = await results[0];
-                    if (r !== undefined){
-                        temp[ind].location = r.name
-                        dispatch(setListPosition(JSON.parse(JSON.stringify(temp))))
-                    }
-                    else 
-                    {
-                        temp[ind].location = "Không xác định"
-                        dispatch(setListPosition(JSON.parse(JSON.stringify(temp))))
-                    }
-                    dispatch(setCurrentSatellite(temp[index_coordinate]))
-                }
-            )
-        })
+        // listSatellite[index_list].coordinate.map((item, ind) => {
+        //     geocoder.reverse(
+        //         {lat: item.lat, lng: item.long},
+        //         256 * Math.pow(2, 18),
+        //         async (results) => {
+        //             var r = await results[0];
+        //             if (r !== undefined){
+        //                 temp[ind].location = r.name
+        //                 dispatch(setListPosition(JSON.parse(JSON.stringify(temp))))
+        //             }
+        //             else 
+        //             {
+        //                 temp[ind].location = "Không xác định"
+        //                 dispatch(setListPosition(JSON.parse(JSON.stringify(temp))))
+        //             }
+        //             dispatch(setCurrentSatellite(temp[index_coordinate]))
+        //         }
+        //     )
+        // })
+        dispatch(setListPosition(JSON.parse(JSON.stringify(temp))))
+        dispatch(setCurrentSatellite(temp[index_coordinate]))
         // console.log(geocoder.reverse(position))
     }
 
